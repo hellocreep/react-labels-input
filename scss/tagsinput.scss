@@ -1,0 +1,62 @@
+.react-wrap {
+  border: 1px solid #ddd;
+  background: #fff;
+  min-height: 30px;
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
+.react-tag-item {
+  border: 1px solid #ddd;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 5px;
+  margin: 5px;
+
+  a:after {
+    content: "X";
+    margin-left: 3px;
+  }
+}
+
+.react-tag-input {
+  border: none;
+  background: transparent;
+  height: 30px;
+  width: 60px;
+  padding-left: 5px;
+
+  &:focus {
+    outline: 0; 
+  }
+}
+
+.react-input-wrap {
+  position: relative;
+}
+
+.react-typeahead-list {
+  position: absolute;
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  top: 100%;
+  left: 0;
+  right: auto;
+  z-index: 100;
+  border: 1px solid #ddd;
+}
+
+.react-typeahead-list__item {
+  cursor: pointer;
+  padding: 5px 8px;
+
+  &:hover {
+    background-color: #ddd;
+  }
+}
+
+.react-typeahead-list__item--active {
+  @extend .react-typeahead-list__item;
+  background-color: #ddd;
+}
