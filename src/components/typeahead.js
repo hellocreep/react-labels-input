@@ -47,7 +47,7 @@ const ItemList = React.createClass({
       if(this.state.currentIndex < 1) return;
       let index = this.state.currentIndex - 1;
       this._keyMove(index);
-    }); 
+    });
     this.props.typeaheadEmitter.on('clear', () => {
       this.setState({
         currentIndex: -1
@@ -65,7 +65,7 @@ const ItemList = React.createClass({
       let active;
       if(index === this.state.currentIndex) {
         active = true;
-      } 
+      }
       return <Item key={index} active={active} classPrefix={this.props.classPrefix} add={this.props.add}>{item}</Item>
     });
     return (

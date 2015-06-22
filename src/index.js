@@ -3,19 +3,22 @@ import {EventEmitter} from 'events';
 import fuzzy from 'fuzzy';
 
 import Input from './components/input';
-import TagList from './components/tag';
+import LabelList from './components/label';
 import TypeAhead from './components/typeahead';
 import {ClassNameMixin} from './components/mixins';
+
+import '../scss/labelsinput.scss';
+
 
 var inputEmitter = new EventEmitter();
 var typeaheadEmitter = new EventEmitter();
 var PropTypes = React.PropTypes;
 function noop() {};
 
-const TagsInput = React.createClass({
+const LabelsInput = React.createClass({
   mixins: [ClassNameMixin],
   propTypes: {
-    tags: PropTypes.array,
+    labels: PropTypes.array,
     add: PropTypes.func,
     remove: PropTypes.func,
     data: PropTypes.array,
@@ -29,7 +32,7 @@ const TagsInput = React.createClass({
   },
   getDefaultProps() {
     return {
-      tags: [],
+      labels: [],
       data: [],
       classPrefix: 'react',
       tailClassName: 'wrap',
@@ -43,52 +46,52 @@ const TagsInput = React.createClass({
     let state = this.state;
     let typeaheadData = [];
     let filterData = props.data.filter((item)=> {
-      return props.tags.indexOf(item) == -1; 
+      return props.labels.indexOf(item) == -1;
     });
-    filterData.forEach((tag)=> {
-      if(value && fuzzy.test(value, tag)) {
-        typeaheadData.push(tag);
+    filterData.forEach((label)=> {
+      if(value && fuzzy.test(value, label)) {
+        typeaheadData.push(label);
       }
     });
     if(!typeaheadData.length) {
       typeaheadData = [];
-    } 
+    }
     this.setState({
       typeaheadData: typeaheadData
     });
   },
-  addTag(value) {
-    if(this.props.tags.indexOf(value) !== -1 || !value) return;
-    let tags = this.props.tags;
-    tags.push(value);
+  addLabel(value) {
+    if(this.props.labels.indexOf(value) !== -1 || !value) return;
+    let labels = this.props.labels;
+    labels.push(value);
     this.setProps({
-      tags: tags
+      labels: labels
     });
     this.setCurrentInput('');
     inputEmitter.emit('clear');
     typeaheadEmitter.emit('clear');
-    this.props.add && this.props.add(value, this.props.tags);
+    this.props.add && this.props.add(value, this.props.labels);
   },
   setCurrentInput(value) {
     this.setState({
       currentInput: value
     });
   },
-  removeTag(value) {
-    var tags = this.props.tags;
-    if(tags.indexOf(value) !== -1) {
-      let index = tags.indexOf(value);
-      tags.splice(index, 1);
+  removeLabel(value) {
+    var labels = this.props.labels;
+    if(labels.indexOf(value) !== -1) {
+      let index = labels.indexOf(value);
+      labels.splice(index, 1);
     }
     this.setProps({
-      tags: tags
-    }); 
-    this.props.remove && this.props.remove(value, this.props.tags);
+      labels: labels
+    });
+    this.props.remove && this.props.remove(value, this.props.labels);
   },
   editLast() {
-    let value = this.props.tags[this.props.tags.length - 1];
+    let value = this.props.labels[this.props.labels.length - 1];
     this.handleChange(value);
-    this.removeTag(value);
+    this.removeLabel(value);
   },
   componentDidMount() {
     this.setProps({
@@ -106,32 +109,35 @@ const TagsInput = React.createClass({
   handleMoveDown() {
     typeaheadEmitter.emit('down');
   },
+  handleFoucs() {
+    inputEmitter.emit('focus');
+  },
   render() {
     var props = this.props;
     var state = this.state;
     return (
-      <div className={this.className}>
-        <TagList 
-          tags={props.tags} 
-          remove={this.removeTag} 
+      <div className={this.className} onClick={this.handleFoucs}>
+        <LabelList
+          labels={props.labels}
+          remove={this.removeLabel}
           classPrefix={props.classPrefix} />
         <span className={props.classPrefix + '-input-wrap'}>
-          <Input 
+          <Input
             classPrefix={props.classPrefix}
             currentInput={state.currentInput}
-            addTag={this.addTag}
-            change={this.handleChange} 
+            addLabel={this.addLabel}
+            change={this.handleChange}
             moveUp={this.handleMoveUp}
             moveDown={this.handleMoveDown}
             editLast={this.editLast}
-            inputEmitter={inputEmitter} 
+            inputEmitter={inputEmitter}
           />
-          <TypeAhead 
+          <TypeAhead
             classPrefix={props.classPrefix}
-            typeaheadEmitter={typeaheadEmitter} 
-            typeaheadData={state.typeaheadData} 
+            typeaheadEmitter={typeaheadEmitter}
+            typeaheadData={state.typeaheadData}
             setCurrentInput={this.setCurrentInput}
-            add={this.addTag} 
+            add={this.addLabel}
           />
         </span>
       </div>
@@ -139,19 +145,4 @@ const TagsInput = React.createClass({
   }
 });
 
-
-var data = ['apple', 'banana', 'cheery', 'angle'];
-
-function add(value, tags) {
-  console.log('add', value);
-  console.log('tags', tags);
-}
-
-function remove(value, tags) {
-  console.log('remove', value); 
-  console.log('tags', tags);
-}
-React.render(
-  <TagsInput data={data} add={add} remove={remove} />,
-  document.getElementById('app')
-);
+export default LabelsInput;
