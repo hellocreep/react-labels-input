@@ -33,9 +33,11 @@
     "react",
     "lables",
     "input",
-    "tags"
+    "tags",
+    "react-component"
   ],
   "author": "hellocreep",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/hellocreep/react-labels-input/issues"
   },
