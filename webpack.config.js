@@ -39,11 +39,11 @@ if(process.argv[2] == 'build') {
       }
     ],
     plugins: [
-      // new webpack.optimize.UglifyJsPlugin({
-      //   compress: {
-      //     warnings: false
-      //   }
-      // }),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        }
+      }),
       new ExtractTextPlugin('style.css')
     ]
   });
