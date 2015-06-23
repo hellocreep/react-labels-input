@@ -1,6 +1,6 @@
 {
   "name": "react-labels-input",
-  "version": "0.0.1",
+  "version": "0.0.21",
   "description": "lables input use react",
   "main": "lib/index.js",
   "devDependencies": {

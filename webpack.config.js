@@ -16,7 +16,7 @@ if(process.argv[2] == 'build') {
     entry: './src/index.js',
     output: {
       library: 'LabelsInput',
-      libraryTarget: 'umd'
+      libraryTarget: 'commonjs2'
     },
     module: {
       loaders: [
