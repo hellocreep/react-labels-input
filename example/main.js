@@ -1,5 +1,5 @@
 import React from 'react';
-import LabelsInput from '../src/index';
+import LabelsInput from '../lib/index';
 
 var data = ['apple', 'banana', 'cheery'];
 

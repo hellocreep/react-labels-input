@@ -5,7 +5,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const config = {
   output: {
-    path: path.join(__dirname, 'lib'),
+    path: path.join(__dirname, 'dist'),
     filename: 'index.js',
     publicPath: '/public/'
   }
@@ -13,10 +13,10 @@ const config = {
 
 if(process.argv[2] == 'build') {
   _.merge(config, {
-    entry: './src/index.js',
+    entry: './lib/index.js',
     output: {
       library: 'LabelsInput',
-      libraryTarget: 'commonjs2'
+      libraryTarget: 'umd'
     },
     module: {
       loaders: [
@@ -34,16 +34,16 @@ if(process.argv[2] == 'build') {
     },
     externals: [
       {
-        react: 'React',
+        react: 'react',
         fuzzy: 'fuzzy'
       }
     ],
     plugins: [
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false
-        }
-      }),
+      // new webpack.optimize.UglifyJsPlugin({
+      //   compress: {
+      //     warnings: false
+      //   }
+      // }),
       new ExtractTextPlugin('style.css')
     ]
   });
