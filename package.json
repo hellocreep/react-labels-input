@@ -1,8 +1,8 @@
 {
   "name": "react-labels-input",
-  "version": "0.0.3",
+  "version": "0.0.31",
   "description": "lables input use react",
-  "main": "index.js",
+  "main": "dist/index.js",
   "devDependencies": {
     "autoprefixer-loader": "^2.0.0",
     "babel": "^5.5.8",
